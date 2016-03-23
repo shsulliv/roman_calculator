@@ -1,0 +1,17 @@
+{
+  "name": "roman_calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "ava -w"
+  },
+  "author": "Shannon Sullivan",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.13.0"
+  }
+}
