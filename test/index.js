@@ -25,3 +25,12 @@ test('The calculator represents the numeral "six" correctly', t => {
   t.is(calculator('IV', 'II'), 'VI');
   t.is(calculator('II', 'IV'), 'VI');
 });
+
+test('The calculator represents the numeral "fifty" correctly', t => {
+  t.is(calculator('XX', 'XXX'), 'L');
+});
+
+test('The calculator represents numerals over "fifty" correctly', t => {
+  t.is(calculator('CCCLXIX', 'DCCCXLV'), 'MCCXIV');
+  t.is(calculator('CXLVII', 'MCV'), 'MCCLII');
+});

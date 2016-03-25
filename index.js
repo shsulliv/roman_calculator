@@ -1,34 +1,83 @@
+function compare(a, b) {
+  var ORDER = 'MDCLXVI';
+  if (a === b) {
+    return 0;
+  } else if (ORDER.indexOf(a) < ORDER.indexOf(b)) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
+
+var compressions = [
+  {
+    uncompressed: 'IIII',
+    compressed: 'IV'
+  },
+  {
+    uncompressed: 'VIIII',
+    compressed: 'IX'
+  },
+  {
+    uncompressed: 'XXXX',
+    compressed: 'XL'
+  },
+  {
+    uncompressed: 'LXXXX',
+    compressed: 'XC'
+  },
+  {
+    uncompressed: 'CCCC',
+    compressed: 'CD'
+  },
+  {
+    uncompressed: 'DCCCC',
+    compressed: 'CM'
+  }
+]
+
+var primitives = [
+  {
+    uncompressed: 'IIIII',
+    compressed: 'V'
+  },
+  {
+    uncompressed: 'VV',
+    compressed: 'X'
+  },
+  {
+    uncompressed: 'XXXXX',
+    compressed: 'L'
+  },
+  {
+    uncompressed: 'LL',
+    compressed: 'C'
+  },
+  {
+    uncompressed: 'CCCCC',
+    compressed: 'D'
+  },
+  {
+    uncompressed: 'DD',
+    compressed: 'M'
+  }
+]
+
 function calculator(numeral1, numeral2) {
-  var one = 'I';
-  var four = 'IV';
-  var five = 'V';
-  var nine = 'IX';
-  var ten = 'X';
+  var result = numeral1 + numeral2;
 
+  compressions.forEach(function(c) {
+    result = result.replace(c.compressed, c.uncompressed);
+  });
 
-  if (numeral1 + numeral2 === 'IIII') {
-    return four;
-  }
+  result = result.split('').sort(compare).join('');
 
-  if (numeral1 + numeral2 === 'IIIII') {
-    return five;
-  }
+  primitives.concat(compressions).forEach(function(p) {
+    result = result.replace(p.uncompressed, p.compressed);
+  });
 
-  if (numeral1 === four && numeral2 === one) {
-    return five;
-  } else if (numeral1 === one && numeral2 === four) {
-    return five;
-  }
+  return result;
 
-  if (numeral1 === 'III' && numeral2 === 'III') {
-    return 'VI';
-  } else if (numeral1 === four && numeral2 === 'II') {
-    return 'VI';
-  } else if (numeral1 === 'II' && numeral2 === four) {
-    return 'VI';
-  }
-
-  return numeral1 + numeral2;
 }
 
 module.exports = calculator;
