@@ -64,20 +64,15 @@ var primitives = [
 ]
 
 function calculator(numeral1, numeral2) {
-  var result = numeral1 + numeral2;
+  var result = compressions
+    .reduce((prev, curr) => prev.replace(curr.compressed, curr.uncompressed), numeral1 + numeral2)
+    .split('')
+    .sort(compare)
+    .join('');
 
-  compressions.forEach(function(c) {
-    result = result.replace(c.compressed, c.uncompressed);
-  });
-
-  result = result.split('').sort(compare).join('');
-
-  primitives.concat(compressions).forEach(function(p) {
-    result = result.replace(p.uncompressed, p.compressed);
-  });
-
-  return result;
-
+  return primitives.concat(compressions).reduce(function(prev, curr) {
+    return prev.replace(curr.uncompressed, curr.compressed);
+  }, result);
 }
 
 module.exports = calculator;
